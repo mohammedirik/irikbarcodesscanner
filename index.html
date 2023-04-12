@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>irik </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Add some basic styling -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      h1 {
+        text-align: center;
+      }
+      
+      #video {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+      }
+      
+      #barcode {
+        font-weight: bold;
+      }
+    </style>
+    
+    <!-- Add the ZXing library -->
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+  </head>
+  
+  <body>
+    <h1>irik jamila bar code scanner</h1>
+    
+    <!-- Add a video element for the camera output -->
+    <video id="video" width="320" height="240" autoplay></video>
+    
+    <!-- Display the scanned barcode here -->
+    <p>Scanned barcode: <span id="barcode"></span></p>
+    
+    <!-- Add the JavaScript code to scan barcodes -->
+    <script>
+      const codeReader = new ZXing.BrowserQRCodeReader();
+      const video = document.getElementById('video');
+      const barcodeResult = document.getElementById('barcode');
+      
+      codeReader.decodeFromVideoDevice(undefined, 'video', (result, error) => {
+        if (result) {
+          console.log(result);
+          barcodeResult.textContent = result.text;
+        }
+        if (error) {
+          console.error(error);
+        }
+      });
+    </script>
+  </body>
+</html>
